@@ -10,7 +10,7 @@
 #include <stdlib.h> 
 #include <windows.h> 
 #include <queue> 
-//TESTS WTF
+
 using namespace std;
 
 struct A {
