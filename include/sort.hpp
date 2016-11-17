@@ -9,7 +9,7 @@
 #include <stdlib.h> 
 #include <windows.h> 
 #include <queue> 
-
+  
 using namespace std;
 
 struct A {
