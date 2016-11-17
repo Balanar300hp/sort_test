@@ -7,7 +7,6 @@
 #include <algorithm> 
 #include <cstdio> 
 #include <stdlib.h> 
-#include <windows.h> 
 #include <queue> 
   
 using namespace std;
