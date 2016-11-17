@@ -1,11 +1,13 @@
-#include "stack.hpp"
+#include "sort.hpp"
 #include <catch.hpp>
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <locale> 
 using namespace std;
  
 SCENARIO("count111", "[count1111]"){
+ setlocale(LC_ALL, "Russian");
   B obj("names.txt");
  ifstream file("sort.txt");
  ifstream out("out.txt");
