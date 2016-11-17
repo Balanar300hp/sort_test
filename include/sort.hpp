@@ -132,7 +132,7 @@ auto B::file_sort()->void {
 
 		}
 	}
-	remove_temp_files();
+	//remove_temp_files();
 }
 
 
