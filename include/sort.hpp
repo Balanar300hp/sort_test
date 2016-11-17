@@ -17,8 +17,6 @@ struct A {
 public:
 	int index;
 	string str;
-	
-
 };
 
 
