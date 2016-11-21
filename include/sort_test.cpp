@@ -92,7 +92,6 @@ inline auto B::remove_temp_files()->void {
 inline auto B::file_sort()->void {
 	ofstream f12("out.txt");
 	string str;
-	ifstream *streams = new ifstream[count_of_files];
 	for (int i = 0; i < count_of_files; ++i) {
 		ifstream* f_ = new ifstream(file_names[i]);
 		getline(*f_, str);
