@@ -10,9 +10,7 @@ SCENARIO("count111", "[count1111]"){
  setlocale(LC_ALL, "Russian");
  B obj("name.txt",1048576);
  ifstream hay("out.txt"),file("sort.txt");
- if (!file.is_open()||!hay.is_open()){
- cout<<"FUCK YOU"<<endl;
- }
+
 int i=0;
  bool p=true;
  string s1,s2;
