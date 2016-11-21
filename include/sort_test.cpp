@@ -14,7 +14,7 @@ struct A {
 public:
 	ifstream *f;
 	string str;
-	A(const string s, ifstream* f_) : str(s), f(f_) {}
+	A(const string& s, ifstream* f_) : str(s), f(f_) {}
 	bool operator < (const A& s) const
 	{
 		return (str > s.str);
