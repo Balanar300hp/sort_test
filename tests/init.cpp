@@ -8,7 +8,7 @@ using namespace std;
  
 SCENARIO("count111", "[count1111]"){
  setlocale(LC_ALL, "Russian");
-  B obj("names.txt");
+ B obj("names.txt",1048576);
  ifstream file("sort.txt");
  ifstream ff("out.txt");
 
