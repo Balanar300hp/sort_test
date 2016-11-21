@@ -21,7 +21,8 @@ int i=0;
   if (s1!=s2){
   p=false;
    cout<<i<<endl;
-   cout<<s1<<"   "<<s2<<endl;
+   cout<<s1<<endl;
+   cout<<s2<<endl;
    break;
   }
  }
