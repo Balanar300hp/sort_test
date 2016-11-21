@@ -12,7 +12,7 @@ using namespace std;
 
 struct A {
 public:
-	fstream *f;
+	ifstream *f;
 	string str;
 	A(const string s, ifstream* f_) : str(s), f(f_) {}
 	bool operator < (const A& s) const
