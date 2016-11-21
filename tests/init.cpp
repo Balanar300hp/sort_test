@@ -11,6 +11,14 @@ SCENARIO("count111", "[count1111]"){
   B obj("names.txt");
  ifstream file("sort.txt");
  ifstream out("out.txt");
+  string vld;
+ ifstream ff("1.txt");
+ while (!ff.eof()){
+ getline (ff,vld);
+  cout<<vld<<endl;
+ }
+ ff.close();
+ 
  bool p=true;
  string s1,s2;
  while (!file.eof()&&!out.eof()){
@@ -27,11 +35,6 @@ SCENARIO("count111", "[count1111]"){
  out.close();
  
  
- string vld;
- ifstream ff("1.txt");
- while (!ff.eof()){
- getline (ff,vld);
-  cout<<vld<<endl;
- }
+
   REQUIRE(p==true);
 }
