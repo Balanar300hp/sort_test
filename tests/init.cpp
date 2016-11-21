@@ -11,6 +11,9 @@ SCENARIO("count111", "[count1111]"){
  B obj("names.txt",1048576);
  ifstream file("sort.txt");
  ifstream file1("out.txt");
+ if (!file.is_open()||!file1.is_open()){
+ cout<<"FUCK YOU"<<endl;
+ }
 int i=0;
  bool p=true;
  string s1,s2;
