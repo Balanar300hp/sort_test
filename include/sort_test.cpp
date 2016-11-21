@@ -45,7 +45,8 @@ inline B::~B() {
 	file_names.clear();
 }
 
-inline B::B(string name_main_file,string out_file,size_t buff_size) :file(name_main_file), s_out(out_file),buffer(buff_size), count_of_files(0), closed_files(0) {
+inline B::B(string name_main_file,string out_file,size_t buff_size) :file(name_main_file), s_out(out_file), count_of_files(0), closed_files(0) {
+	buffer=buff_size*1024*1024;
 	if (file.is_open()) {
 		division();
 	}
