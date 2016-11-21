@@ -6,7 +6,6 @@
 #include <iterator> 
 #include <algorithm> 
 #include <cstdio> 
-#include <stdlib.h>
 #include <queue> 
 
 using namespace std;
@@ -91,7 +90,7 @@ inline auto B::remove_temp_files()->void {
 
 
 inline auto B::file_sort()->void {
-	ofstream file1("hay.txt");
+	ofstream f12("out.txt");
 	string str;
 	ifstream *streams = new ifstream[count_of_files];
 	for (int i = 0; i < count_of_files; ++i) {
@@ -104,7 +103,7 @@ inline auto B::file_sort()->void {
 	while (!end_sorting.empty()) {
 		A ff = end_sorting.top();
 		end_sorting.pop();
-		if (ff.str != "")file1 << ff.str << endl;
+		if (ff.str != "") f12 << ff.str << endl;
 
 		if (!streams[ff.index].eof())
 		{
@@ -112,9 +111,11 @@ inline auto B::file_sort()->void {
 			end_sorting.push(ff);
 		}
 	}
+	
 	for (int i = 0; i < count_of_files; ++i) streams[i].close();
+	f12.close();
 	remove_temp_files();
-	file1.close();
+	
 }
 
 
