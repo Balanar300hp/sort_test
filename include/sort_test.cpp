@@ -12,9 +12,9 @@ using namespace std;
 
 struct A {
 public:
-	fstream *f;
+	ifstream *f;
 	string str;
-	A(const string s, ifstream* f_) : str(s), f(f_) {}
+	A(const string& s, ifstream* f_) : str(s), f(f_) {}
 	bool operator < (const A& s) const
 	{
 		return (str > s.str);
@@ -98,14 +98,14 @@ inline auto B::file_sort()->void {
 		end_sorting.pop();
 		if (ff.str != "") f12 << ff.str << endl;
 
-		if (!(*A.f).eof())
+		if (!(*ff.f).eof())
 		{
-			getline(*A.f, A.str);
-			end_sorting.push(A);
+			getline(*ff.f, ff.str);
+			end_sorting.push(ff);
 		}
 		else
 		{
-			(*(A.f)).close();
+			(*(ff.f)).close();
 		}
 	}
 	f12.close();
