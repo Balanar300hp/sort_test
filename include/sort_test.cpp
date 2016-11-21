@@ -12,9 +12,9 @@ using namespace std;
 
 struct A {
 public:
-	int index;
+	fstream *f;
 	string str;
-	A(const string s, const size_t i) : str(s), index(i) {}
+	A(const string s, ifstream* f_) : str(s), f(f_) {}
 	bool operator < (const A& s) const
 	{
 		return (str > s.str);
@@ -25,7 +25,6 @@ class B {
 public:
 	B(string name_main_file,string out_file,size_t buff_size);
 	auto division()->void;
-	auto file_size(string name_file)->size_t;
 	auto make_file(string name_file)->void;
 	auto file_sort()->void;
 	auto remove_temp_files()->void;
@@ -65,14 +64,7 @@ inline auto B::make_file(string name_file)->void {
 	lines.clear();
 }
 
-inline auto B::file_size(string name_file)->size_t {
-	long fsize;
-	ifstream temp(name_file);
-	temp.seekg(0, ios::end);
-	fsize = temp.tellg();
-	temp.close();
-	return fsize;
-}
+
 
 
 
@@ -94,11 +86,10 @@ inline auto B::remove_temp_files()->void {
 inline auto B::file_sort()->void {
 	ofstream f12(s_out);
 	string str;
-	ifstream *streams = new ifstream[count_of_files];
 	for (int i = 0; i < count_of_files; ++i) {
-		streams[i].open(file_names[i]);
-		getline(streams[i], str);
-		A ff(str, i);
+		ifstream* f_ = new ifstream(file_names[i]);
+		getline(*f_, str);
+		A ff(str, f_);
 		end_sorting.push(ff);
 	}
 	
@@ -107,14 +98,16 @@ inline auto B::file_sort()->void {
 		end_sorting.pop();
 		if (ff.str != "") f12 << ff.str << endl;
 
-		if (!streams[ff.index].eof())
+		if (!(*A.f).eof())
 		{
-			getline(streams[ff.index], ff.str);
-			end_sorting.push(ff);
+			getline(*A.f, A.str);
+			end_sorting.push(A);
+		}
+		else
+		{
+			(*(A.f)).close();
 		}
 	}
-	
-	for (int i = 0; i < count_of_files; ++i) streams[i].close();
 	f12.close();
 	remove_temp_files();
 	
