@@ -6,8 +6,7 @@
 #include <iterator> 
 #include <algorithm> 
 #include <cstdio> 
-#include <stdlib.h> 
-#include <windows.h> 
+#include <stdlib.h>
 #include <queue> 
 
 using namespace std;
