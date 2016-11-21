@@ -25,5 +25,13 @@ SCENARIO("count111", "[count1111]"){
  }
   file.close();
  out.close();
+ 
+ 
+ string vld;
+ ifstream ff("1.txt");
+ while (!ff.eof()){
+ getline (ff,vld);
+  cout<<vld<<endl;
+ }
   REQUIRE(p==true);
 }
