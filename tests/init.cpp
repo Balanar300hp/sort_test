@@ -10,13 +10,13 @@ SCENARIO("count111", "[count1111]"){
  setlocale(LC_ALL, "Russian");
  B obj("names.txt",1048576);
  ifstream file("sort.txt");
- ifstream ff("out.txt");
+ ifstream file1("out.txt");
 int i=0;
  bool p=true;
  string s1,s2;
- while (!file.eof()&&!ff.eof()){
+ while (!file.eof()&&!file1.eof()){
  getline(file,s1);
- getline(ff,s2);
+ getline(file1,s2);
   i++;
   if (s1!=s2){
   p=false;
@@ -27,7 +27,7 @@ int i=0;
   }
  }
   file.close();
- ff.close();
+ file1.close();
  
  
 
