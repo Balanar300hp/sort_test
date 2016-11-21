@@ -18,6 +18,7 @@ int i=0;
  while (!hay.eof()){
 // getline(file,s1);
  getline(hay,s2);
+  cout<<s2<<endl;
   i++;
   /*if (s1!=s2){
   p=false;
