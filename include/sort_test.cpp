@@ -23,7 +23,7 @@ public:
 
 class B {
 public:
-	B(string name_main_file,size_t buff_size);
+	B(string name_main_file,string out_file,size_t buff_size);
 	auto division()->void;
 	auto file_size(string name_file)->size_t;
 	auto make_file(string name_file)->void;
@@ -32,6 +32,7 @@ public:
 	~B();
 private:
 	fstream file;
+	string s_out;
 	size_t buffer, count_of_files, closed_files;
 	vector<string> lines;
 	vector<string> file_names;
@@ -44,7 +45,7 @@ inline B::~B() {
 	file_names.clear();
 }
 
-inline B::B(string name_main_file,size_t buff_size) :file(name_main_file), buffer(buff_size), count_of_files(0), closed_files(0) {
+inline B::B(string name_main_file,string out_file,size_t buff_size) :file(name_main_file), s_out(out_file),buffer(buff_size), count_of_files(0), closed_files(0) {
 	if (file.is_open()) {
 		division();
 	}
@@ -90,7 +91,7 @@ inline auto B::remove_temp_files()->void {
 
 
 inline auto B::file_sort()->void {
-	ofstream f12("out.txt");
+	ofstream f12(s_out);
 	string str;
 	ifstream *streams = new ifstream[count_of_files];
 	for (int i = 0; i < count_of_files; ++i) {
