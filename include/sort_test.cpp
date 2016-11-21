@@ -29,7 +29,6 @@ public:
 	auto file_size(string name_file)->size_t;
 	auto make_file(string name_file)->void;
 	auto file_sort()->void;
-	auto write_to_out(string line)->void;
 	auto remove_temp_files()->void;
 	~B();
 private:
@@ -72,15 +71,9 @@ inline auto B::file_size(string name_file)->size_t {
 	fsize = temp.tellg();
 	temp.close();
 	return fsize;
-
 }
 
-inline auto B::write_to_out(string line)->void {
-	ofstream file("out.txt", ios::app);
-	file << line << endl;
-	file.close();
 
-}
 
 inline auto B::remove_temp_files()->void {
 	for (int i = 0; i < file_names.size(); ++i) {
@@ -98,7 +91,7 @@ inline auto B::remove_temp_files()->void {
 
 
 inline auto B::file_sort()->void {
-	ofstream file1("out.txt");
+	ofstream file1("hay.txt");
 	string str;
 	ifstream *streams = new ifstream[count_of_files];
 	for (int i = 0; i < count_of_files; ++i) {
