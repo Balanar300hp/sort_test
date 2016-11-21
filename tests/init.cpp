@@ -16,6 +16,7 @@ SCENARIO("count111", "[count1111]"){
  while (!file.eof()&&!out.eof()){
  getline(file,s1);
   getline(out,s2);
+  cout<<s2<<endl;
   if (s1!=s2){
   p=false;
    break;
