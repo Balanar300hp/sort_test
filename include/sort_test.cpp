@@ -7,27 +7,25 @@
 #include <algorithm> 
 #include <cstdio> 
 #include <stdlib.h> 
+#include <windows.h> 
 #include <queue> 
-           
+
 using namespace std;
 
 struct A {
 public:
 	int index;
 	string str;
-};
-
-
-
-struct Compare {
-	bool operator()(const A& a, const A& b) {
-		return a.str>b.str;
+	A(const string s, const size_t i) : str(s), index(i) {}
+	bool operator < (const A& s) const
+	{
+		return (str > s.str);
 	}
 };
 
 class B {
 public:
-	B(string name_main_file);
+	B(string name_main_file,size_t buff_size);
 	auto division()->void;
 	auto file_size(string name_file)->size_t;
 	auto make_file(string name_file)->void;
@@ -38,26 +36,24 @@ public:
 private:
 	fstream file;
 	size_t buffer, count_of_files, closed_files;
-	bool out;
 	vector<string> lines;
 	vector<string> file_names;
-	priority_queue<A,vector<A>,Compare> end_sorting;
+	priority_queue<A> end_sorting;
 };
 
 
 
-B::~B() {
+inline B::~B() {
 	file_names.clear();
 }
 
-B::B(string name_main_file) :file(name_main_file), buffer(100), count_of_files(0), closed_files(0) {
+inline B::B(string name_main_file,size_t buff_size) :file(name_main_file), buffer(buff_size), count_of_files(0), closed_files(0) {
 	if (file.is_open()) {
-		out = true;
 		division();
 	}
 };
 
-auto B::make_file(string name_file)->void {
+inline auto B::make_file(string name_file)->void {
 	file_names.push_back(name_file);
 	std::sort(lines.begin(), lines.end());
 	ofstream temp(name_file);
@@ -70,7 +66,7 @@ auto B::make_file(string name_file)->void {
 	lines.clear();
 }
 
-auto B::file_size(string name_file)->size_t { 
+inline auto B::file_size(string name_file)->size_t {
 	long fsize;
 	ifstream temp(name_file);
 	temp.seekg(0, ios::end);
@@ -80,14 +76,14 @@ auto B::file_size(string name_file)->size_t {
 
 }
 
-auto B::write_to_out(string line)->void {
+inline auto B::write_to_out(string line)->void {
 	ofstream file("out.txt", ios::app);
 	file << line << endl;
 	file.close();
 
 }
 
-auto B::remove_temp_files()->void {
+inline auto B::remove_temp_files()->void {
 	for (int i = 0; i < file_names.size(); ++i) {
 		if (remove(file_names[i].c_str()) == -1) {
 			throw;
@@ -102,41 +98,35 @@ auto B::remove_temp_files()->void {
 
 
 
-auto B::file_sort()->void {
-	
-	A *mass = new A[count_of_files];
+inline auto B::file_sort()->void {
+	ofstream file1("out.txt");
+	string str;
 	ifstream *streams = new ifstream[count_of_files];
 	for (int i = 0; i < count_of_files; ++i) {
 		streams[i].open(file_names[i]);
-		getline(streams[i], mass[i].str);
-		mass[i].index = i;
-		end_sorting.push(mass[i]);
+		getline(streams[i], str);
+		A ff(str, i);
+		end_sorting.push(ff);
 	}
 	
-	while (out) {
-		
-		int t_in = end_sorting.top().index;
- 		write_to_out(end_sorting.top().str);
-		
-		if (!streams[t_in].eof()) {
-			getline(streams[t_in],mass[t_in].str);
-			end_sorting.pop();
-			end_sorting.push(mass[t_in]);
-		}
-		else {
-			closed_files++;
-			streams[t_in].close();
-			end_sorting.pop();
-			
-			if (closed_files == count_of_files) { out = false; };
+	while (!end_sorting.empty()) {
+		A ff = end_sorting.top();
+		end_sorting.pop();
+		if (ff.str != "")file1 << ff.str << endl;
 
+		if (!streams[ff.index].eof())
+		{
+			getline(streams[ff.index], ff.str);
+			end_sorting.push(ff);
 		}
 	}
-	//remove_temp_files();
+	for (int i = 0; i < count_of_files; ++i) streams[i].close();
+	remove_temp_files();
+	file1.close();
 }
 
 
-auto B::division()->void {//TESTED 
+inline auto B::division()->void {
 	string line_of_file;
 	size_t temp_size_files = 0;
 	while (!file.eof()) {
@@ -149,7 +139,6 @@ auto B::division()->void {//TESTED
 		}
 		else {
 			count_of_files++;
-
 			make_file(to_string(count_of_files) + ".txt");
 			lines.push_back(line_of_file);
 			temp_size_files = line_of_file.size();
@@ -162,19 +151,5 @@ auto B::division()->void {//TESTED
 		make_file(to_string(count_of_files) + ".txt");
 	}
 
-
 	file_sort();
-};
-
-
-/*int main()
-{
-	setlocale(LC_ALL, "Russian");
-	B obj("names.txt");
-
-
-
-
-	system("pause");
-	return 0;
-}*/
+}
