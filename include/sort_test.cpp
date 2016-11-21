@@ -8,7 +8,7 @@
 #include <cstdio> 
 #include <stdlib.h> 
 #include <queue> 
-     
+           
 using namespace std;
 
 struct A {
