@@ -91,6 +91,7 @@ inline auto B::remove_temp_files()->void {
 
 inline auto B::file_sort()->void {
 	ofstream f12("out.txt");
+	
 	string str;
 	for (int i = 0; i < count_of_files; ++i) {
 		ifstream* f_ = new ifstream(file_names[i]);
@@ -104,14 +105,14 @@ inline auto B::file_sort()->void {
 		end_sorting.pop();
 		if (ff.str != "") f12 << ff.str << endl;
 
-		if (!(*A.f).eof())
+		if (!(*ff.f).eof())
 		{
-			getline(*A.f, A.str);
-			end_sorting.push(A);
+			getline(*ff.f, ff.str);
+			end_sorting.push(ff);
 		}
 		else
 		{
-			(*(A.f)).close();
+			(*(ff.f)).close();
 		}
 	}
 	f12.close();
