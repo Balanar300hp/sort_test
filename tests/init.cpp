@@ -36,7 +36,7 @@ SCENARIO("15mb", "[15mb]"){
  setlocale(LC_ALL, "Russian");
  B obj("15","out2",15);
  ifstream hay("out2");
-ifstream file("sort2");
+ifstream file("sort3");
 
 int i=0;
  bool p=true;
@@ -62,7 +62,7 @@ SCENARIO("8mb", "[8mb]"){
  setlocale(LC_ALL, "Russian");
  B obj("8","out3",8);
  ifstream hay("out3");
-ifstream file("sort3");
+ifstream file("sort2");
 
 int i=0;
  bool p=true;
