@@ -9,7 +9,7 @@ using namespace std;
 SCENARIO("count111", "[count1111]"){
  setlocale(LC_ALL, "Russian");
  B obj("32","out",32);
- ifstream hay("out.txt");
+ ifstream hay("out");
 ifstream file("sort.txt");
 
 int i=0;
