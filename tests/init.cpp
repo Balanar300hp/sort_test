@@ -8,7 +8,7 @@ using namespace std;
  
 SCENARIO("count111", "[count1111]"){
  setlocale(LC_ALL, "Russian");
- B obj("name.txt",1048576);
+ B obj("32","out",32);
  ifstream hay("out.txt");
 ifstream file("sort.txt");
 
@@ -18,20 +18,12 @@ int i=0;
  while (!hay.eof()&&!file.eof()){
 getline(file,s1);
  getline(hay,s2);
-
-  i++;
   if (s1!=s2){
   p=false;
-   cout<<i<<endl;
-   cout<<s1<<endl;
-   cout<<s2<<endl;
    break;
   }
  }
   file.close();
  hay.close();
- 
- 
-
   REQUIRE(p==true);
 }
