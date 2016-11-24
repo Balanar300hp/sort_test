@@ -8,7 +8,7 @@ using namespace std;
  
 SCENARIO("32mb", "[32mb]"){
  setlocale(LC_ALL, "Russian");
- B obj("32","out",32);
+ B obj("32","out",17);
  ifstream hay("out");
 ifstream file("sort.txt");
 
@@ -34,7 +34,7 @@ getline(file,s1);
 
 SCENARIO("15mb", "[15mb]"){
  setlocale(LC_ALL, "Russian");
- B obj("15","out2",15);
+ B obj("15","out2",4);
  ifstream hay("out2");
 ifstream file("sort3");
 
@@ -60,7 +60,7 @@ getline(file,s1);
 
 SCENARIO("8mb", "[8mb]"){
  setlocale(LC_ALL, "Russian");
- B obj("8","out3",8);
+ B obj("8","out3",1);
  ifstream hay("out3");
 ifstream file("sort2");
 
