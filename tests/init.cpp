@@ -57,8 +57,8 @@ getline(file,s1);
 
 SCENARIO("8mb", "[8mb]"){
  B obj("8","out8",1);
- ifstream hay("out3");
-ifstream file("sort2");
+ ifstream hay("out8");
+ifstream file("sort8");
 
 int i=0;
  bool p=true;
