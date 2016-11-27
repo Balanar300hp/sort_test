@@ -86,6 +86,7 @@ inline auto B::make_file(string name_file)->void {
 	file_names.push_back(name_file);
 	std::sort(pers.begin(), pers.end(), [&](person &A, person &B) {
 		if (A.name == B.name) {
+			if (A.surname == B.surname) { return A.age > B.age; }
 			return A.surname < B.surname;
 		}
 		return A.name < B.name;
