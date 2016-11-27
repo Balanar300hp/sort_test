@@ -33,7 +33,7 @@ bool operator >(const person& s1, const person& s2)
 
 istream & operator >> (istream & in, person & s)
 {
-	in >> s.surname >> s.name >> (short)s.age;
+	in >> s.surname >> s.name >> s.age;
 	return in;
 }
 ostream & operator<<(ostream & out, person const & s)
