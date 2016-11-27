@@ -10,7 +10,7 @@ SCENARIO("32mb", "[32mb]"){
  setlocale(LC_ALL, "Russian");
  B obj("32","out",17);
  ifstream hay("out");
-ifstream file("sort32.txt");
+ifstream file("sort32");
 
 int i=0;
  bool p=true;
