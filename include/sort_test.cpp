@@ -2,24 +2,60 @@
 #include <fstream> 
 #include <string> 
 #include <vector> 
-#include <locale> 
+
 #include <iterator> 
 #include <algorithm> 
-#include <cstdio> 
 #include <queue> 
+#include <memory>
+
+
 
 using namespace std;
+
+struct person {
+	string surname, name;
+	short age;
+	size_t size() const
+	{
+		return (name.size() + surname.size() + sizeof(short)+2*sizeof(" "));
+	}
+};
+
+bool operator <(const person& s1, const person& s2)
+{
+	return (s1.name < s2.name);
+}
+
+bool operator >(const person& s1, const person& s2)
+{
+	return (s1.name > s2.name);
+}
+
+istream & operator >> (istream & in, person & s)
+{
+	in >> s.surname >> s.name >> (short)s.age;
+	return in;
+}
+ostream & operator<<(ostream & out, person const & s)
+{
+	out << s.surname << " " << s.name << " "  << s.age;
+	return out;
+}
+
+
 
 struct A {
 public:
 	ifstream *f;
-	string str;
-	A(const string& s, ifstream* f_) : str(s), f(f_) {}
-	bool operator < (const A& s) const
-	{
-		return (str > s.str);
-	}
+	person s;
+	A(const person& s_, ifstream* f_) : s(s_), f(f_) {}
 };
+
+bool operator < (const A& s1, const A& s2)// оператор для структуры А 
+{
+	return (s1.s > s2.s);
+}
+
 
 class B {
 public:
@@ -27,14 +63,13 @@ public:
 	auto division()->void;
 	auto make_file(string name_file)->void;
 	auto file_sort()->void;
-	auto remove_temp_files()->void;
 	~B();
 private:
-	string s_out,s_in,str;
-	size_t buffer, count_of_files, closed_files,temp_size_lines;
-	vector<string> lines;
+	string s_out, s_in, str;
+	size_t count_of_files;
 	vector<string> file_names;
-	priority_queue<A> end_sorting;
+	vector<person> pers;
+	uint_fast64_t buffer;
 };
 
 
@@ -43,57 +78,61 @@ inline B::~B() {
 	file_names.clear();
 }
 
-inline B::B(string name_main_file, string out_file, size_t buff_size) :s_in(name_main_file), s_out(out_file), count_of_files(0), closed_files(0),buffer(buff_size*1024*1024),temp_size_lines(0) {
-		division();
+inline B::B(string name_main_file, string out_file, size_t buff_size) :s_in(name_main_file), s_out(out_file), count_of_files(0), buffer(buff_size * 1024 * 1024*0.8) {
+	division();
 };
 
 inline auto B::make_file(string name_file)->void {
 	file_names.push_back(name_file);
-	std::sort(lines.begin(), lines.end());
-	ofstream temp(name_file);
-	for (auto i : lines)
+	std::sort(pers.begin(), pers.end(), [&](person &A, person &B) {
+		if (A.name == B.name) {
+			return A.surname < B.surname;
+		}
+		return A.name < B.name;
+	});
+	ofstream temp(name_file, ios::binary);
+	for (auto i : pers)
 	{
-		temp << i<<"\n";
+		if (i.surname != "") temp << i << endl;
 	}
 	temp.close();
-	lines.clear();
+	pers.shrink_to_fit();
+	pers.clear();
 }
 
 
 
-
-
-inline auto B::remove_temp_files()->void {
-	for (int i = 0; i < file_names.size(); ++i) {
-		remove(file_names[i].c_str());
-	}
-}
 
 
 inline auto B::file_sort()->void {
-	ofstream f12(s_out);
+	priority_queue<A> end_sorting;
+
 	for (int i = 0; i < count_of_files; ++i) {
-		ifstream* f_ = new ifstream(file_names[i]);
-		getline(*f_, str);
-		A ff(str, f_);
+		ifstream* f_ = new ifstream(file_names[i], ios::binary);
+		person temp_s;
+		*f_ >> temp_s;
+		A ff(temp_s, f_);
 		end_sorting.push(ff);
 	}
 
+	ofstream f12(s_out, ios::binary);
 	while (!end_sorting.empty()) {
 		A ff = end_sorting.top();
 		end_sorting.pop();
-		if (ff.str != "") f12 << ff.str << endl;
+		if (ff.s.surname != "") f12 << ff.s << endl;
 
 		if (!(*ff.f).eof())
 		{
-			getline(*ff.f, ff.str);
+			*ff.f >> ff.s;
 			end_sorting.push(ff);
-		}else{
+		}
+		else {
 			(*(ff.f)).close();
 		}
 	}
 	f12.close();
 
+
 	for (int i = 0; i < file_names.size(); ++i) {
 		remove(file_names[i].c_str());
 	}
@@ -101,29 +140,28 @@ inline auto B::file_sort()->void {
 }
 
 
+
 inline auto B::division()->void {
-	ifstream file(s_in);
+	size_t i(0);
+	person chel;
+	ifstream file(s_in, ios::binary);
 	while (!file.eof()) {
-		getline(file, str);
-		temp_size_lines += str.size();
-
-
-		if (temp_size_lines <= buffer) {
-			lines.push_back(str);
-		}
-		else {
+		file >> chel;
+		i += chel.size();
+		if (i<buffer) {
+			pers.push_back(chel);
+		}else {
 			count_of_files++;
 			make_file(to_string(count_of_files));
-			lines.push_back(str);
-			temp_size_lines = str.size();
+			pers.push_back(chel);
+			i = chel.size();
 		}
 	}
 	file.close();
-
-
-	if (lines.size()) {
+	if (!pers.empty()) {
 		count_of_files++;
 		make_file(to_string(count_of_files));
 	}
 	file_sort();
 }
+
