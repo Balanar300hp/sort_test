@@ -80,7 +80,7 @@ inline B::~B() {
 	pers.shrink_to_fit();
 }
 
-inline B::B(string name_main_file, string out_file, size_t buff_size) :s_in(name_main_file), s_out(out_file), count_of_files(0), buffer(buff_size * 1024 * 1024*0.8) {
+inline B::B(string name_main_file, string out_file, size_t buff_size) :s_in(name_main_file), s_out(out_file), count_of_files(0), buffer(buff_size * 1024 * 1024*0.7) {
 	division();
 };
 
