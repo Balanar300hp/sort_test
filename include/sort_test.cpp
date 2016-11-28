@@ -65,7 +65,7 @@ public:
 	auto file_sort()->void;
 	~B();
 private:
-	string s_out, s_in, str;
+	string s_out, s_in;
 	size_t count_of_files;
 	vector<string> file_names;
 	vector<person> pers;
