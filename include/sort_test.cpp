@@ -38,7 +38,7 @@ istream & operator >> (istream & in, person & s)
 }
 ostream & operator<<(ostream & out, person const & s)
 {
-	out << s.surname << " " << s.name << " "  << s.age;
+	out << s.surname << " " << s.name << " "  << s.age<<"\n";
 	return out;
 }
 
@@ -96,7 +96,7 @@ inline auto B::make_file(string name_file)->void {
 	ofstream temp(name_file, ios::binary);
 	for (auto i : pers)
 	{
-		if (i.surname != "") temp << i << endl;
+		if (i.surname != "") temp << i ;
 	}
 	temp.close();
 	pers.clear();
