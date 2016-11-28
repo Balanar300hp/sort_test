@@ -17,7 +17,7 @@ struct person {
 	short age;
 	size_t size() const
 	{
-		return (surname.size()+name.size()+ sizeof(age)+2*sizeof(" "));
+		return (surname.capacity()+name.capacity()+ sizeof(age)+2*sizeof(" "));
 	}
 };
 
