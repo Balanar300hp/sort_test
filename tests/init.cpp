@@ -1,5 +1,5 @@
 #include "sort_test.cpp"
-#include "time.cpp"
+#include "time.hpp"
 #include <catch.hpp>
 #include <iostream>
 #include <string>
