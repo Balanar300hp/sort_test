@@ -1,4 +1,5 @@
 #include "sort_test.cpp"
+#include "time.cpp"
 #include <catch.hpp>
 #include <iostream>
 #include <string>
@@ -6,7 +7,17 @@
 using namespace std;
  
 SCENARIO("32mb", "[32mb]"){
+ 
+ double startTime, endTime;
+
+startTime = getCPUTime( );
  B obj("32","out",17);
+ endTime = getCPUTime( );
+ fprintf( stderr, "CPU time used for 32mb = %lf\n", (endTime - startTime) );
+ 
+ 
+ endTime = getCPUTime( );
+ 
  ifstream hay("out");
 ifstream file("sort32");
 
@@ -31,7 +42,16 @@ getline(file,s1);
 }
 
 SCENARIO("15mb", "[15mb]"){
- B obj("15","out2",4);
+ 
+ 
+  double startTime, endTime;
+
+startTime = getCPUTime( );
+ 
+  B obj("15","out2",4);
+ endTime = getCPUTime( );
+ fprintf( stderr, "CPU time used for 32mb = %lf\n", (endTime - startTime) );
+
  ifstream hay("out2");
 ifstream file("sort15");
 
@@ -56,7 +76,15 @@ getline(file,s1);
 }
 
 SCENARIO("8mb", "[8mb]"){
- B obj("8","out8",1);
+ 
+ 
+  double startTime, endTime;
+
+startTime = getCPUTime( );
+  B obj("8","out8",1);
+ endTime = getCPUTime( );
+ fprintf( stderr, "CPU time used for 32mb = %lf\n", (endTime - startTime) );
+
  ifstream hay("out8");
 ifstream file("sort8");
 
