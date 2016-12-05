@@ -80,17 +80,13 @@ inline B::~B() {
 	pers.shrink_to_fit();
 }
 
-inline B::B(string name_main_file, string out_file, size_t buff_size) :s_in(name_main_file), s_out(out_file), count_of_files(0), buffer(buff_size * 1024 * 1024*0.7) {
+inline B::B(string name_main_file, string out_file, size_t buff_size) :s_in(name_main_file), s_out(out_file), count_of_files(0), buffer(buff_size * 1024 * 1024*0.8) {
 	division();
 };
 
 inline auto B::make_file(string name_file)->void {
 	file_names.push_back(name_file);
 	std::sort(pers.begin(), pers.end(), [&](person &A, person &B) {
-		//if (A.name == B.name) {
-			//if (A.surname == B.surname) { return A.age > B.age; }
-			//return A.surname < B.surname;
-		//}
 		return A.name < B.name;
 	});
 	ofstream temp(name_file, ios::binary);
